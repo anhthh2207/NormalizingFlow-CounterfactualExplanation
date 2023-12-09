@@ -37,8 +37,10 @@ def load_hyperparameter_for_method(path, method, data_name) -> Dict:
 
 
 def load_all_configuration_with_data_name(DATA_NAME):
-    CONFIG_PATH = '/home/trduong/Data/fairCE/configuration/data_catalog.yaml'
-    CONFIG_FOR_PROJECT = '/home/trduong/Data/fairCE/configuration/project_configurations.yaml'
+    # CONFIG_PATH = '/home/trduong/Data/fairCE/configuration/data_catalog.yaml'
+    CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    # CONFIG_FOR_PROJECT = '/home/trduong/Data/fairCE/configuration/project_configurations.yaml'
+    CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     configuration_for_proj = load_configuration_from_yaml(CONFIG_FOR_PROJECT)
     DATA_PATH = configuration_for_proj[DATA_NAME + '_dataset']
 

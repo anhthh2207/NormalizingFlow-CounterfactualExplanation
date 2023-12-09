@@ -1,4 +1,4 @@
-adult_dataset: /home/trduong/Data/fairCE/data/processed_adult.csv
+adult_dataset: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/data/processed_adult.csv
 law_dataset: /home/trduong/Data/fairCE/data/law_data.csv
 compas_dataset: /home/trduong/Data/fairCE/data/compas.csv
 simple_bn_dataset: /home/trduong/Data/fairCE/data/simple_bn/processed_bn1.csv

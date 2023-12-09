@@ -24,8 +24,10 @@ from tqdm import tqdm
 
 if __name__ == "__main__":
     DATA_NAME = 'simple_bn'
-    CONFIG_PATH = '/home/trduong/Data/fairCE/configuration/data_catalog.yaml'
-    CONFIG_FOR_PROJECT = '/home/trduong/Data/fairCE/configuration/project_configurations.yaml'
+    # CONFIG_PATH = '/home/trduong/Data/fairCE/configuration/data_catalog.yaml'
+    CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    # CONFIG_FOR_PROJECT = '/home/trduong/Data/fairCE/configuration/project_configurations.yaml'
+    CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     configuration_for_proj = load_configuration_from_yaml(CONFIG_FOR_PROJECT)
     DATA_PATH = configuration_for_proj[DATA_NAME + '_dataset']
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
