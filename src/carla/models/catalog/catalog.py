@@ -81,7 +81,7 @@ class MLModelCatalog(MLModel):
 
         # Load catalog
         catalog_content = ["ann"]
-        # catalog = load_catalog("/home/trduong/Data/fairCE/configuration/mlmodel_catalog.yaml", data.name, catalog_content)  # type: ignore
+        # catalog = load_catalog("/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/mlmodel_catalog.yaml", data.name, catalog_content)  # type: ignore
         catalog = load_catalog("/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/mlmodel_catalog.yaml", data.name, catalog_content)  # type: ignore
 
         # if model_type not in catalog:

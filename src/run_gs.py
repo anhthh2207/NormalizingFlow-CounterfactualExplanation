@@ -35,11 +35,11 @@ if __name__ == "__main__":
     # random_state = args.random_state
     DATA_NAME = args.data_name
 
-    # CONFIG_PATH = "/home/trduong/Data/fairCE/configuration/data_catalog.yaml"
+    # CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
     CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
-    # CONFIG_FOR_PROJECT = "/home/trduong/Data/fairCE/configuration/project_configurations.yaml"
+    # CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
-    # CONFIG_FOR_EXPERIMENT = "/home/trduong/Data/fairCE/configuration/experimental_setup.yaml"
+    # CONFIG_FOR_EXPERIMENT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/experimental_setup.yaml"
     CONFIG_FOR_EXPERIMENT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/experimental_setup.yaml"
 
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")

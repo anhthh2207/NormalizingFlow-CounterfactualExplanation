@@ -1,31 +1,31 @@
 adult_dataset: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/data/processed_adult.csv
-law_dataset: /home/trduong/Data/fairCE/data/law_data.csv
-compas_dataset: /home/trduong/Data/fairCE/data/compas.csv
-simple_bn_dataset: /home/trduong/Data/fairCE/data/simple_bn/processed_bn1.csv
-moon_dataset: /home/trduong/Data/fairCE/data/simple_bn/moon.csv
+law_dataset: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/data/law_data.csv
+compas_dataset: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/data/compas.csv
+simple_bn_dataset: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/data/simple_bn/processed_bn1.csv
+moon_dataset: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/data/simple_bn/moon.csv
 
-predictive_model_adult: /home/trduong/Data/fairCE/models/predictive_model_adult.pth
-predictive_model_law: /home/trduong/Data/fairCE/models/predictive_model_law.pth
-predictive_model_compas: /home/trduong/Data/fairCE/models/predictive_model_compas.pth
-predictive_model_simple_bn: /home/trduong/Data/fairCE/models/predictive_model_simple_bn.pth
-predictive_model_moon: /home/trduong/Data/fairCE/models/predictive_model_moon.pth
+predictive_model_adult: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/predictive_model_adult.pth
+predictive_model_law: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/predictive_model_law.pth
+predictive_model_compas: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/predictive_model_compas.pth
+predictive_model_simple_bn: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/predictive_model_simple_bn.pth
+predictive_model_moon: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/predictive_model_moon.pth
 
-flow_model_adult: /home/trduong/Data/fairCE/models/flow_model_adult.pth
-flow_model_law: /home/trduong/Data/fairCE/models/flow_model_law.pth
-flow_model_compas: /home/trduong/Data/fairCE/models/flow_model_compas.pth
-flow_model_simple_bn: /home/trduong/Data/fairCE/models/flow_model_simple_bn.pth
-flow_model_moon: /home/trduong/Data/fairCE/models/flow_model_moon.pth
+flow_model_adult: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_model_adult.pth
+flow_model_law: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_model_law.pth
+flow_model_compas: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_model_compas.pth
+flow_model_simple_bn: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_model_simple_bn.pth
+flow_model_moon: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_model_moon.pth
 
-flow_ce_adult: /home/trduong/Data/fairCE/models/flow_ce_adult.pth
-flow_ce_law: /home/trduong/Data/fairCE/models/flow_ce_law.pth
-flow_ce_compas: /home/trduong/Data/fairCE/models/flow_ce_compas.pth
-flow_ce_simple_bn: /home/trduong/Data/fairCE/models/flow_ce_simple_bn.pth
+flow_ce_adult: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_ce_adult.pth
+flow_ce_law: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_ce_law.pth
+flow_ce_compas: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_ce_compas.pth
+flow_ce_simple_bn: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/models/flow_ce_simple_bn.pth
 
 
-result_adult: /home/trduong/Data/fairCE/reports/results/adult/{}
-result_law: /home/trduong/Data/fairCE/reports/results/law/{}
-result_compas: /home/trduong/Data/fairCE/reports/results/compas/{}
-result_simple_bn: /home/trduong/Data/fairCE/reports/results/simple_bn/{}
+result_adult: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/reports/results/adult/{}
+result_law: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/reports/results/law/{}
+result_compas: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/reports/results/compas/{}
+result_simple_bn: /home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/reports/results/simple_bn/{}
 
 
 
