@@ -57,6 +57,23 @@ if __name__ == "__main__":
     PRINT_FREQ = 10
     MEAN_VALUE = 0.5
 
+    ###################################################################
+    # if DATA_NAME == 'simple_bn':
+    #     x1_mean = data_frame['x1'].median()
+    #     x2_mean = data_frame['x2'].median()
+    #     x3_mean = data_frame['x3'].median()
+    #     means = torch.tensor([
+    #         np.array([x1_mean, x2_mean, x3_mean]).astype(np.float32)
+    #     ])
+    #     prior = SSLGaussMixture(means=means, device='cuda')
+    # else:
+    #     means = []
+    #     for column in data_frame.columns:
+    #         if column != target:
+    #             means.append(data_frame[column].median())
+    #     means = torch.tensor(np.array([means]).astype(np.float32)) 
+    ########################################################################
+
     if DATA_NAME == 'simple_bn':
         x1_mean = data_frame['x1'].median()
         x2_mean = data_frame['x2'].median()
@@ -64,22 +81,37 @@ if __name__ == "__main__":
         means = torch.tensor([
             np.array([x1_mean, x2_mean, x3_mean]).astype(np.float32)
         ])
-        prior = SSLGaussMixture(means=means, device='cuda')
+    elif DATA_NAME == 'moon':
+        x1_mean = data_frame['x1'].median()
+        x2_mean = data_frame['x2'].median()
+        means = torch.tensor([
+            np.array([x1_mean, x2_mean]).astype(np.float32)
+        ])
+    elif DATA_NAME == 'adult':
+        x1_mean = 0.05
+        x2_mean = 0.05
+        x3_mean = 0.05
+        x4_mean = data_frame['age'].mean()
+        x5_mean = data_frame['hours_per_week'].mean()
+        means = torch.tensor([
+            np.array([x1_mean, x2_mean, x3_mean, x4_mean, x5_mean]).astype(np.float32)])
 
-    # prior = SSLGaussMixture(means=means, device='cuda')
-    
+
+    prior = SSLGaussMixture(means=means, device='cuda')
+
+
     features = data_frame[feature_names].values.astype(np.float32)
     features = torch.Tensor(features)
     features_cuda = features.cuda()
     labels = model_prediction(predictive_model, features_cuda).detach().cpu()
 
-    # flow = RealNVPTabular(num_coupling_layers=5, in_dim=3,
-    #                       num_layers=3, hidden_dim=32).cuda()
-    # loss_fn = FlowLoss(prior, k=3)
-    # loss_cefn = FlowCrossEntropyCELoss(margin=0.5)
+    flow = RealNVPTabular(num_coupling_layers=5, in_dim=data_frame.shape[1]-1,
+                          num_layers=3, hidden_dim=32).cuda()
+    loss_fn = FlowLoss(prior, k=3)
+    loss_cefn = FlowCrossEntropyCELoss(margin=0.5)
 
-    # optimizer = torch.optim.Adam(
-    #     flow.parameters(), lr=LR_INIT, weight_decay=1e-2)
+    optimizer = torch.optim.Adam(
+        flow.parameters(), lr=LR_INIT, weight_decay=1e-2)
 
     negative_index = negative_prediction_index(labels)
     negative_instance_features = prediction_instances(features, negative_index)
@@ -97,23 +129,24 @@ if __name__ == "__main__":
     positive_data = TensorDatasetTraning(positive_data)
     positive_loader = DataLoader(positive_data, batch_size=64, shuffle=True)
 
-    # for t in tqdm(range(EPOCHS)):
-    #     for local_batch, local_labels in (positive_loader):
-    #         local_batch = local_batch.cuda()
-    #         local_labels = local_labels.cuda()
-    #         z = flow(local_batch)
-    #         x = flow.inverse(z)
-    #         local_prediction = model_prediction(predictive_model, x)
-    #         sldj = flow.logdet()
-    #         # flow_loss = loss_fn(z, sldj)
-    #         ce_loss = loss_cefn.forward(local_prediction, positive=True)
-    #         # total_loss = flow_loss + ce_loss
-    #         total_loss = ce_loss
-    #         optimizer.zero_grad()
-    #         total_loss.backward()
-    #         optimizer.step()
-    #     if t % PRINT_FREQ == 0:
-    #         print('iter %s:' % t, 'loss = %.3f' % total_loss)
+    for t in tqdm(range(EPOCHS)):
+        for local_batch, local_labels in (positive_loader):
+            local_batch = local_batch.cuda()
+            local_labels = local_labels.cuda()
+            z = flow(local_batch)
+            x = flow.inverse(z)
+            local_prediction = model_prediction(predictive_model, x)
+            sldj = flow.logdet()
+            # flow_loss = loss_fn(z, sldj)
+            ce_loss = loss_cefn.forward(local_prediction, positive=True)
+            # total_loss = flow_loss + ce_loss
+            total_loss = ce_loss
+            optimizer.zero_grad()
+            total_loss.backward()
+            optimizer.step()
+        if t % PRINT_FREQ == 0:
+            print('iter %s:' % t, 'loss = %.3f' % total_loss)
+    print("Training Done")
 
     # for t in tqdm(range(EPOCHS)):
     #     for local_batch, local_labels in (negative_loader):
@@ -133,23 +166,23 @@ if __name__ == "__main__":
     #     if t % PRINT_FREQ == 0:
     #         print('iter %s:' % t, 'loss = %.3f' % total_loss)
 
-
+    # ################# dont know what is going on here
     # for local_batch, local_labels in (negative_loader):
     #     local_batch = local_batch.cuda()
 
     #     z = flow(local_batch)
     #     x = flow.inverse(z)
 
-        # z_value = get_latent_representation_from_flow(flow, local_batch)
-        # x_value = original_space_value_from_latent_representation(
-        #     flow, z_value)
-        # labels = model_prediction(
-        #     predictive_model, x).detach().cpu()
+    #     z_value = get_latent_representation_from_flow(flow, local_batch)
+    #     x_value = original_space_value_from_latent_representation(
+    #         flow, z_value)
+    #     labels = model_prediction(
+    #         predictive_model, x).detach().cpu()
         
-        # print(labels)
-        # print((labels > 0.5).sum() / len(labels))
-        # break
+    #     print(labels)
+    #     print((labels > 0.5).sum() / len(labels))
+    #     break
 
 
-    # save_pytorch_model_to_model_path(
-    #     flow, configuration_for_proj['flow_ce_' + DATA_NAME])
+    save_pytorch_model_to_model_path(
+        flow, configuration_for_proj['flow_ce_' + DATA_NAME])
