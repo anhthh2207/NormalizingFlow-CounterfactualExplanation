@@ -8,7 +8,8 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset
 import pickle
-from oil.utils.utils import Expression,export,Named
+# from oil.utils.utils import Expression,export,Named
+from ..utils import Expression,export,Named
 import subprocess
 from sklearn.model_selection import train_test_split
 

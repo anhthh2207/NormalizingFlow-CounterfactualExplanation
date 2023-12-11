@@ -5,7 +5,7 @@ from counterfactual_explanation.flow_ssl.flow_loss import FlowLoss, FlowCrossEnt
 from counterfactual_explanation.flow_ssl.data import make_moons_ssl
 from counterfactual_explanation.flow_ssl.distributions import SSLGaussMixture
 from counterfactual_explanation.flow_ssl.realnvp.realnvp import RealNVPTabular
-from counterfactual_explanation.utils.data_catalog import (DataCatalog, EncoderNormalizeDataCatalog,
+from counterfactual_explanation.utils.data_catalog import (DataCatalog, EncoderNormalizeDataCatalog, LabelEncoderNormalizeDataCatalog,
                                                            TensorDatasetTraning, TensorDatasetTraningCE)
 from counterfactual_explanation.utils.helpers import load_configuration_from_yaml
 from counterfactual_explanation.utils.mlcatalog import (save_pytorch_model_to_model_path,
@@ -23,9 +23,10 @@ from counterfactual_explanation.utils.mlcatalog import (
 from tqdm import tqdm
 
 if __name__ == "__main__":
-    DATA_NAME = 'simple_bn'
-    # CONFIG_PATH = '/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml'
-    CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    # DATA_NAME = 'simple_bn'    # there is no simple_bn data in this repo
+    DATA_NAME = "adult" 
+    # CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    CONFIG_PATH = '/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml'
     # CONFIG_FOR_PROJECT = '/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml'
     CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     configuration_for_proj = load_configuration_from_yaml(CONFIG_FOR_PROJECT)
@@ -33,11 +34,20 @@ if __name__ == "__main__":
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     data_catalog = DataCatalog(DATA_NAME, DATA_PATH, CONFIG_PATH)
-    encoder_normalize_data_catalog = EncoderNormalizeDataCatalog(data_catalog)
+    # encoder_normalize_data_catalog = EncoderNormalizeDataCatalog(data_catalog)
+    if DATA_NAME == 'simple_bn':
+        encoder_normalize_data_catalog = EncoderNormalizeDataCatalog(
+            data_catalog)
+    elif DATA_NAME == "adult":
+        encoder_normalize_data_catalog = LabelEncoderNormalizeDataCatalog(
+            data_catalog)
     data_frame = encoder_normalize_data_catalog.data_frame
+
     target = encoder_normalize_data_catalog.target
     feature_names = encoder_normalize_data_catalog.categoricals + \
         encoder_normalize_data_catalog.continous
+
+
     predictive_model, _, encoder_normalize_data_catalog, configuration_for_proj = load_all_configuration_with_data_name(
         DATA_NAME)
 
@@ -54,9 +64,10 @@ if __name__ == "__main__":
         means = torch.tensor([
             np.array([x1_mean, x2_mean, x3_mean]).astype(np.float32)
         ])
+        prior = SSLGaussMixture(means=means, device='cuda')
 
-    prior = SSLGaussMixture(means=means, device='cuda')
-
+    # prior = SSLGaussMixture(means=means, device='cuda')
+    
     features = data_frame[feature_names].values.astype(np.float32)
     features = torch.Tensor(features)
     features_cuda = features.cuda()

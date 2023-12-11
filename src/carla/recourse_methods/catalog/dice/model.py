@@ -98,7 +98,7 @@ class Dice(RecourseMethod):
         list_cfs = dice_exp.cf_examples_list
         df_cfs = pd.concat([cf.final_cfs_df for cf in list_cfs], ignore_index=True)
         df_cfs[self._continous] = self._scaler.transform(df_cfs[self._continous])
-        encoded_features = self._encoder.get_feature_names(self._categoricals)
+        encoded_features = self._encoder.get_feature_names_out(self._categoricals)
         df_cfs[encoded_features] = self._encoder.transform(df_cfs[self._categoricals])
         df_cfs = df_cfs[self._feature_order + [self._target]]
 

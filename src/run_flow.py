@@ -27,7 +27,7 @@ from counterfactual_explanation.utils.mlcatalog import (
 if __name__ == '__main__':
     """Parsing argument"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='simple_bn')
+    parser.add_argument('--data_name', type=str, default='adult')
     parser.add_argument('--weight', type=float, default=0.5)
 
     """Load parse argument"""
@@ -38,8 +38,8 @@ if __name__ == '__main__':
     # DATA_NAME = "moon"
     # DATA_NAME = "adult"
 
-    # CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
-    CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    # CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
     # CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")

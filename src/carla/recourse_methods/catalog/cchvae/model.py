@@ -259,6 +259,9 @@ class CCHVAE(RecourseMethod):
                 x_ce = np.vstack([education, marital_status, occupation, age, hour_per_week]).T
 
             # STEP 2 -- COMPUTE l1 & l2 norms
+            print('data name: ', self.DATA_NAME)
+            print("x_ce.shape: ", x_ce.shape)
+            print("torch_fact.shape(): ", torch_fact.shape)
             distances = LA.norm(x_ce - torch_fact.cpu().detach().numpy(), axis=1)
             # if self._p_norm == 1:
             #     distances = np.abs((x_ce -intance_value)).sum(
@@ -298,7 +301,7 @@ class CCHVAE(RecourseMethod):
     def get_counterfactuals(self, factuals: pd.DataFrame) -> pd.DataFrame:
         df_enc_norm_fact = self.encode_normalize_order_factuals(factuals)
 
-        encoded_feature_names = self._mlmodel.encoder.get_feature_names(
+        encoded_feature_names = self._mlmodel.encoder.get_feature_names_out(
             self._mlmodel.data.categoricals
         )
         cat_features_indices = [
@@ -308,6 +311,7 @@ class CCHVAE(RecourseMethod):
 
         result = []
         for index, row in df_enc_norm_fact.iterrows():
+            print('search')
             a = self._counterfactual_search(self._step, row.values.reshape(1, -1), cat_features_indices)
             result.append(a)
 

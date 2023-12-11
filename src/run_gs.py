@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # DATA_NAME = "adult"
     """Parsing argument"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='simple_bn')
+    parser.add_argument('--data_name', type=str, default='adult')
     # parser.add_argument('--data_name', type=str, default='adult')
 
     """Load parse argument"""
@@ -35,8 +35,8 @@ if __name__ == "__main__":
     # random_state = args.random_state
     DATA_NAME = args.data_name
 
-    # CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
-    CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    # CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
+    CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
     # CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     # CONFIG_FOR_EXPERIMENT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/experimental_setup.yaml"
@@ -81,6 +81,8 @@ if __name__ == "__main__":
 
     factual_sample = data_frame.loc[position]
     factual_sample = factual_sample[:5]
+    print('data frame.shape: ', data_frame.shape)
+    print('factual_sample.shape: ', factual_sample.shape)
 
     # processed_catalog.data_catalog.raw = data_frame
     model = MLModelCatalog(

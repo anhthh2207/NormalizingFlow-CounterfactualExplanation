@@ -107,7 +107,7 @@ class EncoderNormalizeDataCatalog():
     def convert_to_one_hot_encoding_form(self):
         encoded_data_frame = self.encoder.fit_transform(
             self.data_frame[self.categoricals])
-        column_name = self.encoder.get_feature_names(self.categoricals)
+        column_name = self.encoder.get_feature_names_out(self.categoricals)
         self.data_frame[column_name] = pd.DataFrame(
             encoded_data_frame, columns=column_name)
         self.data_frame = self.data_frame.drop(self.categoricals, axis=1)
@@ -146,7 +146,7 @@ class LabelEncoderNormalizeDataCatalog():
         self.data_frame[self.categoricals] = self.data_frame[self.categoricals].apply(LabelEncoder().fit_transform)
 
         # data.raw[self.categoricals] = self.data_frame[self.categoricals].apply(LabelEncoder().fit_transform)
-        # # column_name = self.encoder.get_feature_names(self.categoricals)
+        # # column_name = self.encoder.get_feature_names_out(self.categoricals)
         # self.data_frame[column_name] = pd.DataFrame(
         #     encoded_data_frame, columns=column_name)
         # self.data_frame = self.data_frame.drop(self.categoricals, axis=1)

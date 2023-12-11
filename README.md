@@ -24,7 +24,8 @@ To use the CeFlow framework, follow these steps:
 
 * Clone the repository to your local machine.
 * Navigate to the src/ folder.
-* Run train_flow.py to train the normalizing flow model on the training data.
+* Run train_classifier.py to train the classifer model. When running the code you, might find some incorrect directory, modify the directory in the code according to how to store the project in local machine.
+* Run train_flow.py (this is compulsory before training CE flow) to train the normalizing flow model on the training data.
 * Run train_ce_flow.py to train the CeFlow model on the training data.
 * Run run_gs.py to perform a grid search to find the best hyperparameters for the CeFlow model.
 * After training the model, run predict.py to obtain counterfactual explanations for individual predictions.

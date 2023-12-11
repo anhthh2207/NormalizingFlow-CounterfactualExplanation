@@ -23,7 +23,7 @@ if __name__ == "__main__":
     # DATA_NAME = "simple_bn"
     # DATA_NAME = "moon"
     DATA_NAME = "adult"
-
+    
     # CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
     CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
     # CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"

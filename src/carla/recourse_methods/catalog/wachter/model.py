@@ -97,7 +97,7 @@ class Wachter(RecourseMethod):
         print(df_enc_norm_fact)
 
 
-        encoded_feature_names = self._mlmodel.encoder.get_feature_names(
+        encoded_feature_names = self._mlmodel.encoder.get_feature_names_out(
             self._mlmodel.data.categoricals
         )
         cat_features_indices = [

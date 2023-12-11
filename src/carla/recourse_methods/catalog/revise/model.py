@@ -150,7 +150,7 @@ class Revise(RecourseMethod):
         )
 
         # pay attention to categorical features
-        encoded_feature_names = self._mlmodel.encoder.get_feature_names(
+        encoded_feature_names = self._mlmodel.encoder.get_feature_names_out(
             self._mlmodel.data.categoricals
         )
         cat_features_indices = [

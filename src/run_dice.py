@@ -3,6 +3,8 @@ import torch
 from counterfactual_explanation.utils.data_catalog import DataCatalog
 import pandas as pd
 import torch
+import argparse
+
 
 from counterfactual_explanation.utils.data_catalog import DataCatalog
 
@@ -16,7 +18,7 @@ if __name__ == "__main__":
     # DATA_NAME = "adult"
     """Parsing argument"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data_name', type=str, default='simple_bn')
+    parser.add_argument('--data_name', type=str, default='adult')
 
     """Load parse argument"""
     args = parser.parse_args()
@@ -24,8 +26,8 @@ if __name__ == "__main__":
     weight = args.weight
     DATA_NAME = args.data_name
 
+    # CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
     CONFIG_PATH = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
-    CONFIG_PATH = "NormalizingFlow-CounterfactualExplanation/configuration/data_catalog.yaml"
     # CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     CONFIG_FOR_PROJECT = "/home/backdoor/hoanganh22h/NormalizingFlow-CounterfactualExplanation/configuration/project_configurations.yaml"
     DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")

@@ -53,7 +53,8 @@ def d1_distance(delta: np.ndarray) -> List[float]:
     List[float]
     """
     # compute elements which are greater than 0
-    return np.sum(delta != 0, axis=1, dtype=np.float).tolist()
+    # return np.sum(delta != 0, axis=1, dtype=np.float).tolist()
+    return np.sum(delta != 0, axis=1, dtype=float).tolist()
 
 
 def d2_distance(delta: np.ndarray) -> List[float]:
@@ -70,7 +71,8 @@ def d2_distance(delta: np.ndarray) -> List[float]:
     List[float]
     """
 
-    return np.sum(np.abs(delta), axis=1, dtype=np.float).tolist()
+    # return np.sum(np.abs(delta), axis=1, dtype=np.float).tolist()
+    return np.sum(np.abs(delta), axis=1, dtype=float).tolist()
 
 
 def d3_distance(delta: np.ndarray) -> List[float]:
@@ -86,7 +88,8 @@ def d3_distance(delta: np.ndarray) -> List[float]:
     -------
     List[float]
     """
-    return np.sum(np.square(np.abs(delta)), axis=1, dtype=np.float).tolist()
+    # return np.sum(np.square(np.abs(delta)), axis=1, dtype=np.float).tolist()
+    return np.sum(np.square(np.abs(delta)), axis=1, dtype=float).tolist()
 
 
 def d4_distance(delta: np.ndarray) -> List[float]:
