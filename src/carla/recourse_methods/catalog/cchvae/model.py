@@ -181,9 +181,11 @@ class CCHVAE(RecourseMethod):
         # counter
         count = 0
         counter_step = 1
-
+        # print('factual: ', factual.shape)
         torch_fact = torch.from_numpy(factual).to(device)
+        # print("torch_fact = ", torch_fact)
 
+        # breakpoint()
         if self.DATA_NAME == 'adult':
             instance_ = factual.reshape(1, -1)
             age = instance_[:, 0]
@@ -231,6 +233,10 @@ class CCHVAE(RecourseMethod):
         z_rep = np.repeat(z.reshape(1, -1), self._n_search_samples, axis=0)
 
         candidate_dist: List = []
+
+    
+        #################################################################################################################
+        # breakpoint()
         x_ce: Union[np.ndarray, torch.Tensor] = np.array([])
         while count <= self._max_iter or len(candidate_dist) <= 0:
             count = count + counter_step
@@ -247,22 +253,73 @@ class CCHVAE(RecourseMethod):
             # x_ce = reconstruct_encoding_constraints(
             #     x_ce, cat_features_indices, self._params["binary_cat_features"]
             # )
+            # breakpoint()
             x_ce = x_ce.detach().cpu().numpy()
             x_ce = x_ce.clip(0, 1) if self._clamp else x_ce
-
+            # print("x_ce before: ", x_ce.shape)
             if self.DATA_NAME == 'adult':
                 age = x_ce[:, 0]
                 hour_per_week = x_ce[:, 1]
                 education = np.argmax(x_ce[:, 2:7], axis=1)
                 marital_status = np.argmax(x_ce[:, 7:11], axis=1)
                 occupation = np.argmax(x_ce[:, 11:], axis=1)
-                x_ce = np.vstack([education, marital_status, occupation, age, hour_per_week]).T
+                x_ce = np.vstack([education, marital_status, occupation, age, hour_per_week]).T  
+                # print('argmax: ', [np.vstack([education, marital_status, occupation, age, hour_per_week]).T])
+                # print('real x_ce: ', x_ce[np.vstack([education, marital_status, occupation, age, hour_per_week]).T])
+        ######################################################################################################################################
+
+        # ######################################################################################################################################
+        # x_ce: Union[np.ndarray, torch.Tensor] = np.array([])
+        # print('x_ce.shape: ', x_ce.shape)
+        # """
+        #     What is x_ce ?
+        #     what is torch_fact?
+        # """
+
+        # while count <= self._max_iter or len(candidate_dist) <= 0:
+        #     count = count + counter_step
+        #     if count > self._max_iter:
+        #         log.debug("No counterfactual example found")
+        #         return x_ce[0]
+
+        #     # STEP 1 -- SAMPLE POINTS on hyper sphere around instance
+        #     latent_neighbourhood, _ = self._hyper_sphere_coordindates(z_rep, high, low)
+        #     torch_latent_neighbourhood = (
+        #         torch.from_numpy(latent_neighbourhood).to(device).float()
+        #     )
+        #     x_ce = self._generative_model.decode(torch_latent_neighbourhood)[0]
+        #     print('x_ce.shape: ', x_ce.shape)
+        #     # x_ce = reconstruct_encoding_constraints(
+        #     #     x_ce, cat_features_indices, self._params["binary_cat_features"]
+        #     # )
+        #     x_ce = x_ce.detach().cpu().numpy()
+        #     x_ce = x_ce.clip(0, 1) if self._clamp else x_ce
+        #     print('x_ce.shape: ', x_ce.shape)
+        #     print('here')
+
+        #     if self.DATA_NAME == 'adult':
+        #         age = np.expand_dims(x_ce[:, 0], axis=1)
+        #         print('age: ', age.shape)
+        #         hour_per_week = np.expand_dims(x_ce[:, 1], axis=1)
+        #         print('house_per_week: ', hour_per_week.shape)
+        #         education = np.expand_dims(np.argmax(x_ce[:, 2:7], axis=1), axis=1).repeat(7-2,axis=1)
+        #         print("education: ", education.shape)
+        #         marital_status = np.expand_dims(np.argmax(x_ce[:, 7:11], axis=1), axis=1).repeat(11-7,axis=1)
+        #         print('marital status: ', marital_status.shape)
+        #         occupation = np.expand_dims(np.argmax(x_ce[:, 11:], axis=1), axis=1).repeat(x_ce.shape[1]-11,axis=1)
+        #         print('occupation: ', occupation.shape)
+        #         # x_ce = np.vstack([education, marital_status, occupation, age, hour_per_week]).T
+        #         x_ce = np.concatenate([education, marital_status, occupation, age, hour_per_week], axis=1)
+        # ##############################################################################################################################
+
 
             # STEP 2 -- COMPUTE l1 & l2 norms
-            print('data name: ', self.DATA_NAME)
-            print("x_ce.shape: ", x_ce.shape)
-            print("torch_fact.shape(): ", torch_fact.shape)
-            distances = LA.norm(x_ce - torch_fact.cpu().detach().numpy(), axis=1)
+            # print('data name: ', self.DATA_NAME)
+            # print("x_ce.shape: ", x_ce.shape)
+            # print("torch_fact.shape(): ", torch_fact.shape)
+            
+            # distances = LA.norm(x_ce - torch_fact.cpu().detach().numpy(), axis=1)
+            distances = LA.norm(x_ce - intance_value, axis=1)
             # if self._p_norm == 1:
             #     distances = np.abs((x_ce -intance_value)).sum(
             #         axis=1

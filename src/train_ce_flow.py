@@ -95,7 +95,7 @@ if __name__ == "__main__":
         x5_mean = data_frame['hours_per_week'].mean()
         means = torch.tensor([
             np.array([x1_mean, x2_mean, x3_mean, x4_mean, x5_mean]).astype(np.float32)])
-
+    print("data_frame shape: ", data_frame.shape)
 
     prior = SSLGaussMixture(means=means, device='cuda')
 

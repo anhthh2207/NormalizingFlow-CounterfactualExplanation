@@ -81,8 +81,8 @@ if __name__ == "__main__":
 
     factual_sample = data_frame.loc[position]
     factual_sample = factual_sample[:5]
-    print('data frame.shape: ', data_frame.shape)
-    print('factual_sample.shape: ', factual_sample.shape)
+    # print('data frame.shape: ', data_frame.shape)
+    # print('factual_sample.shape: ', factual_sample.shape)
 
     # processed_catalog.data_catalog.raw = data_frame
     model = MLModelCatalog(

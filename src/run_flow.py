@@ -66,6 +66,7 @@ if __name__ == '__main__':
     features = torch.Tensor(features)
     features = features.cuda()
 
+    breakpoint() ### init the model, using flow model, not ce_flow ##############################################################
     predictions = model_prediction(predictive_model, features)
     negative_index = negative_prediction_index(predictions)
     negative_instance_features = prediction_instances(
@@ -91,6 +92,7 @@ if __name__ == '__main__':
         result_path = configuration_for_proj['result_adult']
 
     # Run algorithm
+    breakpoint() # find the counter factual example via gradient descent ##############################################################
     start = timeit.default_timer()
     cf_sample = []
     for single_factual in factual_sample:
@@ -99,7 +101,9 @@ if __name__ == '__main__':
         cf_sample.append(counterfactual)
     stop = timeit.default_timer()
     run_time = stop - start
+    
 
+    breakpoint() ## after find the counterfactual examples ########################################################################
     # Output
     factual_df = pd.DataFrame(factual_sample.cpu().detach(
     ).numpy(), columns=list(data_frame.columns)[:-1])
